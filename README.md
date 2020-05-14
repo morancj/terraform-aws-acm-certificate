@@ -6,21 +6,21 @@ A Terraform module to create an Amazon Certificate Manager (ACM) certificate wit
 
 ```hcl
 resource "aws_route53_zone" "default" {
-  name = "linaro.org"
+  name = "example.org"
 }
 
 module "cert" {
-  source = "github.com/morancj/terraform-aws-acm-certificate?ref=0.1.2"
+  source = "github.com/morancj/terraform-aws-acm-certificate?ref=1.0.0"
 
   providers = {
     aws.acm_account     = "aws.cert-account"
     aws.route53_account = "aws.route53-account"
   }
 
-  domain_name               = "linaro.org"
+  domain_name               = "example.org"
   subject_alternative_names = [
-    "staging.linaro.org"
-    "*.linaro.org"
+    "staging.example.org",
+    "*.example.org"
   ]
   hosted_zone_id            = "${aws_route53_zone.default.zone_id}"
   validation_record_ttl     = "60"
