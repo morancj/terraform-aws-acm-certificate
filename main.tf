@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 resource "aws_acm_certificate" "default" {
-  provider                  = "aws.acm_account"
+  provider                  = aws.acm_account
   domain_name               = var.domain_name
   subject_alternative_names = var.subject_alternative_names
   validation_method         = "DNS"
@@ -22,7 +22,7 @@ resource "aws_acm_certificate" "default" {
 }
 
 resource "aws_route53_record" "validation" {
-  provider = "aws.route53_account"
+  provider = aws.route53_account
   count    = length(var.subject_alternative_names) + 1
 
   name    = lookup(aws_acm_certificate.default.domain_validation_options[count.index], "resource_record_name")
