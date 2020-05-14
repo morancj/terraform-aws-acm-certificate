@@ -1,7 +1,10 @@
-variable "domain_name" {}
+variable "domain_name" {
+  type = string
+}
 
 variable "subject_alternative_names" {
-  type = "list"
+  type = list(string)
+  default = []
 }
 
 variable "hosted_zone_id" {}
